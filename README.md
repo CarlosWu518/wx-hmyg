@@ -137,3 +137,48 @@ page {
 ​					  3) 让swiper标签的高度变成和图片一样高即可
 
 ​				 4.图片标签 mode属性 widthFix （让图片的标签宽高 和 图片标签的内容的宽高都等比例发			生变化）
+
+##### 通过promise来解决地狱回调
+
+1. 在request文件夹中新建index.js
+
+```javascript
+export const request = (params) => {
+    return new Promise((resolve, reject) => { //（成功，失败）
+        wx.request({
+            ...params,
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (error) => {
+                reject(error);
+            }
+        });
+    })
+}
+```
+
+2. 引入用来发送请求的方法
+
+   ```javascript
+   import { request } from "../../request/index.js"
+   ```
+
+3. 运用
+
+   ```js
+   request({ url: "。。。。。。。。。。" }).then(result => {
+               this.setData({
+                   swiperList: result.data.message
+               })
+           })
+   ```
+
+#### 分类导航模块
+
+###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/home/catitems
+
+#### 楼层模块
+
+###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/home/floordata
+
