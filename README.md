@@ -182,3 +182,6 @@ export const request = (params) => {
 
 ###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/home/floordata
 
+#### 分类页面
+
+###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/categories

@@ -1,4 +1,4 @@
-import { request } from "../../request/index.js"
+   import { request } from "../../request/index.js"
 
 // pages/category/index.js
 Page({
@@ -10,7 +10,9 @@ Page({
         // 左侧的菜单数据
         leftMenuList: [],
         // 右侧的商品数据
-        rightContent: []
+        rightContent: [],
+        // 被点击的左侧菜单
+        currentIndex:0
     },
     //接口的返回数据
     Cates: [],
@@ -38,5 +40,22 @@ Page({
                 rightContent
             })
         })
-    }
+    },
+
+    /**
+     * 左侧菜单的点击事件
+     * @param {*} e
+     */
+    handleItemTap(e){
+        // 1.获取被点击的标题身上的索引
+        // 2。给data中的currentIndex赋值
+        // 3. 根据不同的索引来渲染右侧的商品内容
+        const {index} = e.currentTarget.dataset;
+        let rightContent = this.Cates[index].children;
+        this.setData({
+            currentIndex:index,
+            rightContent
+        })
+      
+     }
 })
