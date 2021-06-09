@@ -185,3 +185,75 @@ export const request = (params) => {
 #### 分类页面
 
 ###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/categories
+
+###### 缓存处理：
+
+​		在打开页面的时候，先进行一个判断，判断本地存储中是否有旧的数据，如果没有就直接发送新的请求来获取数据，如果有旧的数据，而且没有过期，就是用本地存贮中的旧数据。
+
+ 1. 获取本地存储中的数据
+
+    ```javascript
+    const Cates = wx.getStorageSync('cates');
+    ```
+
+ 2. 判断
+
+    ```javascript
+     if (!Cates) {
+                this.getCates();
+            }else{
+                //有旧的数据 定义过期时间 10是改成5分钟
+                if (Date.now()-Cates.time>1000*10) {
+                    //重新发送请求
+                    this.getCates();
+                }else{
+                    //可以使用旧的数据
+                    this.Cates = Cates.data;
+                    //构造左侧的大数据
+                    let leftMenuList = this.Cates.map(v => v.cat_name);
+                    //构造右侧的商品数据
+                    let rightContent = this.Cates[0].children;
+                    this.setData({
+                        leftMenuList,
+                        rightContent
+                    })
+                }
+            }
+    ```
+
+ 3. 存储
+
+    ```javascript
+    //把接口的数据接口存储到本地存储中
+                wx.setStorageSync('cates', {time:Date.now(),data:this.Cates})
+    ```
+
+优化1：点击左侧菜单，右侧列表无法置顶
+
+​		通过标签 *scroll-top*
+
+接口代码的优化：在request中修改
+
+```javascript
+export const request = (params) => {
+    //定义公共的url
+    const baseUrl="https://api-hmugo-web.itheima.net/api/public/v1"
+    return new Promise((resolve, reject) => {
+        wx.request({
+            ...params,
+            url:baseUrl+params.url,
+            success: (result) => {
+                resolve(result)
+            },
+            fail: (error) => {
+                reject(error);
+            }
+        });
+    })
+}
+```
+
+
+
+​	
+
