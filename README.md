@@ -253,7 +253,9 @@ export const request = (params) => {
 }
 ```
 
+##### 商品列表页面搜索
 
+###### 后台接口：https://api-hmugo-web.itheima.net/api/public/v1/goods/search
 
 ​	
 
