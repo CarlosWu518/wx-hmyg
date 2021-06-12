@@ -32,7 +32,7 @@ Page({
         pagenum: 1,
         pagesize: 10
     },
-
+    totalPages:1,
     /**
      * 生命周期函数--监听页面加载
      */
@@ -43,9 +43,13 @@ Page({
     //获取商品列表数据
     async getGoodList() {
         const res = await request({ url: "/goods/search", data: this.QueryParams });
+        const total = res.total;
+        this.totalPages = Math.ceil(total / this.QueryParams.pagesize)
         this.setData({
-            goodList: res.goods
+            // 要对data中数组进行拼接而不是全部替换
+            goodList: [...this.data.goodList,...res.goods]
         })
+        wx.stopPullDownRefresh();
     },
     //标题点击事件
     tabsItemChange(e) {
@@ -58,5 +62,27 @@ Page({
         this.setData({
             tabs
         })
+    },
+    //页面上滑触底事件
+    onReachBottom(){
+        //判断是否还有下一页
+        if(this.QueryParams.pagenum >= this.totalPages){
+            //没有下一页
+            wx.showToast({
+                title: '已经到底了哦',
+              })             
+        }else{
+            //有下一页
+            this.QueryParams.pagenum++;
+            this.getGoodList();
+        }
+    },
+    //页面下拉刷新事件
+    onPullDownRefresh(){
+            this.setData({
+                goodList:[]
+            });
+            this.QueryParams.pagenum = 1;
+            this.getGoodList();
     }
 })
