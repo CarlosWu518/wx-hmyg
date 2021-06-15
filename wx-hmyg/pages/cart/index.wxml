@@ -1,7 +1,7 @@
 <!-- 收获地址 -->
 <view class="revice_address_row">
     <view class="address_btn">
-        <button type="primary" plain>
+        <button bindtap = "handleChooseAddress" type="primary" plain>
             获取收获地址
         </button>
           
