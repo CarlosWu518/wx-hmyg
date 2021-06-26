@@ -1,9 +1,103 @@
 <!-- 收获地址 -->
 <view class="revice_address_row">
-    <view class="address_btn">
+    <!-- 当收获地址不存在的时候按钮显示 -->
+    <view class="address_btn" wx:if="{{!address.userName}}">
         <button bindtap = "handleChooseAddress" type="primary" plain>
             获取收获地址
         </button>
-          
+    </view>
+    <!-- 当收获地址存在的时候详细信息就显示 -->
+    <view wx:else class="user_info_row">
+        <view class="user_info">
+            <view>
+                  {{address.userName}}
+            </view>
+            <view>
+                    {{address.provinceName+address.cityName+address.countyName+address.detailInfo}}
+            </view>
+        </view>
+        <view class="user_phone">
+                    {{address.telNumber}}
+        </view>
+    </view>
+</view>
+<!--购物车的内容-->
+<view class="cart_content">
+    <view class="cart_title">
+        购物车
+    </view>
+    <view class="cart_main">
+        <view class="cart_item">
+            <!-- 复选框 -->
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox>
+                        
+                    </checkbox>
+                </checkbox-group>
+            </view>
+            <!-- 商品图片 -->
+            <navigator class="cart_img_wrap">
+                <image mode="widthFix" src="http://image5.suning.cn/uimg/b2c/newcatentries/0000000000-000000000160455569_1_400x400.jpg" />            
+            </navigator>
+            <!-- 商品信息 -->
+            <view class="cart_info_wrap">
+                <view class="goods_name">
+                    海信(Hisense)LED55MU9600X3DUC 55英寸 4K超高清量子点电视 ULED画质 VIDAA系统
+                </view>
+                  <view class="goods_price_wrap">
+                      <view class="goods_price">
+                          $999
+                      </view>
+                        <view class="cart_num_tool">
+                            <view class="num_edit">
+                                -
+                            </view>
+                            <view class="goods_num">
+                                10
+                            </view>
+                             <view class="num_edit">
+                                 +
+                             </view>
+                        </view> 
+                  </view>                    
+            </view>           
+        </view>
+         <view class="cart_item">
+            <!-- 复选框 -->
+            <view class="cart_chk_wrap">
+                <checkbox-group bindchange="">
+                    <checkbox>
+                        
+                    </checkbox>
+                </checkbox-group>
+            </view>
+            <!-- 商品图片 -->
+            <navigator class="cart_img_wrap">
+                <image mode="widthFix" src="http://image5.suning.cn/uimg/b2c/newcatentries/0000000000-000000000160455569_1_400x400.jpg" />            
+            </navigator>
+            <!-- 商品信息 -->
+            <view class="cart_info_wrap">
+                <view class="goods_name">
+                    海信(Hisense)LED55MU9600X3DUC 55英寸 4K超高清量子点电视 ULED画质 VIDAA系统
+                </view>
+                  <view class="goods_price_wrap">
+                      <view class="goods_price">
+                          $999
+                      </view>
+                        <view class="cart_num_tool">
+                            <view class="num_edit">
+                                -
+                            </view>
+                            <view class="goods_num">
+                                10
+                            </view>
+                             <view class="num_edit">
+                                 +
+                             </view>
+                        </view> 
+                  </view>                    
+            </view>           
+        </view>
     </view>
 </view>

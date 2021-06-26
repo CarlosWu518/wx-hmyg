@@ -1,5 +1,17 @@
 // pages/cart/index.js
 Page({
+    data() {
+        address: {
+
+        }
+    },
+    onShow() {
+        //获取缓存中的收获地址
+        const address = wx.getStorageSync("address");
+        this.setData({
+            address
+        })
+    },
     // 点击 收货地址
     handleChooseAddress() {
         //获取权限状态
@@ -11,6 +23,7 @@ Page({
                     wx.chooseAddress({
                         success: (result1) => {
                             console.log(result1);
+                            wx.setStorageSync("address", result1);
                         },
                     });
                 } else {
@@ -19,6 +32,7 @@ Page({
                             wx.chooseAddress({
                                 success: (result3) => {
                                     console.log(result3);
+                                    wx.setStorageSync("address", result3);
                                 },
                             });
                         },
