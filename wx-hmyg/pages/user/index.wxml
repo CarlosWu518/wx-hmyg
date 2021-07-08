@@ -1,2 +1,8 @@
 <!--pages/user/index.wxml-->
 <text>pages/user/index.wxml</text>
+<view>
+   <button bindtap = "handleChooseAddress" type="primary" plain>
+            获取收获地址
+        </button>
+</view>
+  

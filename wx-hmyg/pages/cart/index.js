@@ -157,5 +157,42 @@ Page({
             this.setCart(cart);
         }
 
+    },
+    //点击结算
+    handlePay() {
+        //判断收获地址
+        const { address, totalNum } = this.data;
+        if (!address.userName) {
+            wx.showToast({
+                title: '您还未填写收获地址',
+                icon: 'none',
+                image: '',
+                duration: 1500,
+                mask: false,
+                success: (result) => {},
+                fail: () => {},
+                complete: () => {}
+            });
+            console.log("1");
+            return;
+        }
+        //判断用户有没有选择商品
+        if (totalNum === 0) {
+            wx.showToast({
+                title: '您还没有选购商品',
+                icon: 'none',
+                image: '',
+                duration: 1500,
+                mask: false,
+                success: (result) => {},
+                fail: () => {},
+                complete: () => {}
+            });
+            return;
+        }
+        //跳转到  支付页面
+        wx.navigateTo({
+            url: '/pages/pay/index',
+        });
     }
 })
